@@ -1,10 +1,10 @@
-# 📡 ESP32 Router Monitor & Auto-Reset V2
+# ESP32 Router Monitor & Auto-Reset V2
 
 Este proyecto utiliza un **ESP32** para monitorear la estabilidad de la conexión a Internet y realizar un ciclo de encendido (power cycle) al router de forma automática mediante un relé en caso de falla. 
 
 Además, incluye funciones avanzadas de gestión remota como un panel web, notificaciones por Telegram y Wake-on-LAN.
 
-## ✨ Características Principales
+## Características Principales
 
 * **Monitoreo Inteligente:** Chequeo programado cada 1 hora. Realiza 3 pruebas de conectividad antes de decidir un reinicio.
 * **Auto-Reset Robusto:** Si detecta caída, espera 60 segundos (permitiendo cancelación manual) y apaga el router por 25 segundos.
@@ -14,14 +14,14 @@ Además, incluye funciones avanzadas de gestión remota como un panel web, notif
 * **Watchdog (WDT):** Sistema de seguridad por hardware que reinicia el ESP32 si el código se bloquea.
 * **Wake-on-LAN (WOL):** Permite encender computadoras de la red local desde el panel web.
 
-## 🛠️ Hardware Necesario
+## Hardware Necesario
 
 1.  **ESP32** (Cualquier variante compatible).
 2.  **Módulo Relé** (Para controlar la alimentación del router).
 3.  **LED de Estado** (Indicador visual de reinicio).
 4.  **Fuente de poder 5V** para el ESP32.
 
-## 🚀 Configuración e Instalación
+## Configuración e Instalación
 
 1.  Abre el código en el IDE de Arduino o VS Code (PlatformIO).
 2.  Instala las librerías necesarias (vienen por defecto en el core de ESP32).
@@ -32,7 +32,7 @@ Además, incluye funciones avanzadas de gestión remota como un panel web, notif
     * `WOL_MAC` con la dirección física del dispositivo a despertar.
 4.  Configura los pines `RELAY_PIN` y `LED_PIN` según tu conexión física.
 
-## 🖥️ Panel Web
+## Panel Web
 El monitor crea un servidor web en la IP fija asignada. Desde allí puedes:
 * Ver el historial de los últimos 50 eventos con marca de tiempo.
 * Monitorear la potencia de la señal WiFi (RSSI).
@@ -139,5 +139,7 @@ void loop() {
   updateRouter();
 }
 ```
+## Interfaz Web
+![Interfaz Web]([image-path-or-url](https://github.com/bomberosalas/RouterResetESP32/blob/main/web.png))
 
 *Desarrollado por Carlos Salas - 2026*
