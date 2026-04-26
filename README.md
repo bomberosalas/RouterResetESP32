@@ -140,6 +140,6 @@ void loop() {
 }
 ```
 ## Interfaz Web
-![Interfaz Web]([image-path-or-url](https://github.com/bomberosalas/RouterResetESP32/blob/main/web.png))
+![Interfaz Web](https://github.com/bomberosalas/RouterResetESP32/blob/main/web.png)
 
 *Desarrollado por Carlos Salas - 2026*
