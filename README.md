@@ -40,7 +40,7 @@ El monitor crea un servidor web en la IP fija asignada. Desde allí puedes:
 * Enviar un paquete "Magic Packet" (WOL).
 
 ## Diagrama de conexiones
-
+```mermaid
 graph TD
     subgraph "Alimentación"
         USB[Adaptador AC a USB] -- "Cable USB-C" --> ESP32[ESP32-C3 Super Mini]
@@ -62,5 +62,7 @@ graph TD
     style ESP32 fill:#2d333b,stroke:#3081f7,color:#fff
     style Relay fill:#2d333b,stroke:#f44336,color:#fff
     style Router fill:#111,stroke:#4caf50,color:#fff
+
+```
 ---
 *Desarrollado por Carlos Salas - 2026*
