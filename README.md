@@ -39,5 +39,28 @@ El monitor crea un servidor web en la IP fija asignada. Desde allí puedes:
 * Cancelar un reinicio automático inminente.
 * Enviar un paquete "Magic Packet" (WOL).
 
+## Diagrama de conexiones
+
+graph TD
+    subgraph "Alimentación"
+        USB[Adaptador AC a USB] -- "Cable USB-C" --> ESP32[ESP32-C3 Super Mini]
+    end
+
+    subgraph "Control"
+        ESP32 -- "GPIO 4 (Signal)" --> Relay[Módulo Relé]
+        ESP32 -- "5V (VCC)" --> Relay
+        ESP32 -- "GND" --> Relay
+        ESP32 -- "Internal LED" --> LED[Pin 8 - Status]
+    end
+
+    subgraph "Carga (Router)"
+        Power[Fuente 12V Router] -- "Cable (+)" --> COM[Relé: PIN COM]
+        NC[Relé: PIN NC] -- "Cable (+)" --> Router[Entrada Router]
+        Power -- "Cable (-)" --> Router
+    end
+
+    style ESP32 fill:#2d333b,stroke:#3081f7,color:#fff
+    style Relay fill:#2d333b,stroke:#f44336,color:#fff
+    style Router fill:#111,stroke:#4caf50,color:#fff
 ---
 *Desarrollado por Carlos Salas - 2026*
