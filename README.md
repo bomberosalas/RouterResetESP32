@@ -65,4 +65,79 @@ graph TD
 
 ```
 ---
+## Código
+
+```C++
+#include <WiFi.h>
+#include <WebServer.h>
+#include <WiFiUdp.h>
+#include <HTTPClient.h>
+#include <esp_task_wdt.h>
+#include "time.h"
+
+// ================= CONFIGURACIÓN =================
+#define WDT_TIMEOUT 20 
+#define LOG_SIZE 50
+
+// NTP LOCAL (ESP32 + GPS)
+const char* ntpServer = "192.168.X.X"; // IP de tu servidor NTP
+const long  gmtOffset_sec = -14400;     // UTC-4
+const int   daylightOffset_sec = 0; 
+
+// TELEGRAM
+String BOT_TOKEN = "TU_TELEGRAM_TOKEN";
+String CHAT_ID   = "TU_CHAT_ID";
+
+// WIFI
+const char* ssid = "TU_SSID";
+const char* password = "TU_PASSWORD";
+
+IPAddress local_IP(192, 168, 0, 70);
+IPAddress gateway(192, 168, 0, 1);
+IPAddress subnet(255, 255, 255, 0);
+
+// HARDWARE
+#define RELAY_PIN 4  // Pin de control del relé
+#define LED_PIN 8    // LED interno ESP32-C3 Super Mini
+#define RELAY_ON LOW // Depende de tu módulo relé (Low Level Trigger)
+#define RELAY_OFF HIGH
+
+// ESTADOS
+enum RouterState {ON, REBOOTING};
+RouterState state = ON;
+unsigned long lastCheck = 0;
+const unsigned long checkInterval = 3600000; 
+
+// ... (Resto de la lógica que desarrollamos antes)
+
+void setup() {
+  // Configuración Watchdog
+  esp_task_wdt_config_t wdt_config = {
+    .timeout_ms = WDT_TIMEOUT * 1000,
+    .idle_core_mask = (1 << portNUM_PROCESSORS) - 1,
+    .trigger_panic = true
+  };
+  esp_task_wdt_init(&wdt_config);
+  esp_task_wdt_add(NULL);
+
+  pinMode(RELAY_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
+  
+  digitalWrite(RELAY_PIN, RELAY_ON); // Router encendido por defecto
+  digitalWrite(LED_PIN, LOW);
+
+  connectWiFi();
+  setupWeb();
+  // ...
+}
+
+void loop() {
+  esp_task_wdt_reset();
+  server.handleClient();
+  checkInternetLogic();
+  autoResetLogic();
+  updateRouter();
+}
+```
+
 *Desarrollado por Carlos Salas - 2026*
